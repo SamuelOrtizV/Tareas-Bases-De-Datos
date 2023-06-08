@@ -14,7 +14,7 @@ datasource db {
 
 model personajes {
   id    Int     @id @default(autoincrement())
-  name  String
+  nombre  String
   fuerza Int
   fecha_nacimiento DateTime
   objeto String?

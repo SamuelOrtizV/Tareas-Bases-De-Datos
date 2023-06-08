@@ -1,6 +1,8 @@
 import express from 'express';
 import UsersController from './controllers/UsersController.js';
+import personajesController from "./controllers/personajesController.js";
 import morgan from 'morgan';
+
 
 const ENV = process.env;
 const app = express();
@@ -10,10 +12,11 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 //endpoints(Routes)
-app.get('/users', UsersController.getUsers)
-app.get('/users/:id', UsersController.getUserById)
-app.post('/users', UsersController.createUser)
-app.get('/users/:id/posts', UsersController.usersPosts)
+app.get('/api/personajes', personajesController.getPersonajes)
+app.get('/api/personajes/:id', personajesController.getPersonajeById)
+app.post('/api/personajes', personajesController.addPersonaje)
+app.put('/api/personajes/:id', personajesController.updatePersonaje)
+app.delete('/api/personajes/:id', personajesController.deletePersonaje)
 
 
 //==========================================================//
