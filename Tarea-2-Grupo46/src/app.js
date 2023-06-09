@@ -2,6 +2,7 @@ import express from 'express';
 import personajesController from "./controllers/personajesController.js";
 import trabajosController from "./controllers/trabajosController.js";
 import personaje_trabajoController from "./controllers/personaje_trabajo.js";
+import reinosController from "./controllers/reinosController.js";
 import morgan from 'morgan';
 
 
@@ -32,6 +33,13 @@ app.get('/api/personaje_tiene_trabajo/:id1/:id2', personaje_trabajoController.ge
 app.post('/api/personaje_tiene_trabajo', personaje_trabajoController.addPersonajeTrabajo)
 app.put('/api/personaje_tiene_trabajo/:id1/:id2', personaje_trabajoController.updatePersonajeTrabajo)
 app.delete('/api/personaje_tiene_trabajo/:id1/:id2', personaje_trabajoController.deletePersonajeTrabajo)
+
+//CRUD reinos
+app.get('/api/reinos', reinosController.getReinos);
+app.get('/api/reinos/:id', reinosController.getReinoById);
+app.post('/api/reinos', reinosController.addReino);
+app.put('/api/reinos/:id', reinosController.updateReino);
+app.delete('/api/reinos/:id', reinosController.deleteReino);
 
 
 //==========================================================//
