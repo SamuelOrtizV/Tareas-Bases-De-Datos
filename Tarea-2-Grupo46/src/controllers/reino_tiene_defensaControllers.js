@@ -10,10 +10,15 @@ const getReinoTieneDefensas = async (req, res) => {
 };
 
 const getReinoTieneDefensaById = async (req, res) => {
-  const { id } = req.params;
+  const { id1 , id2 } = req.params;
   try {
     const reinoTieneDefensa = await prisma.reino_tiene_defensa.findUnique({
-      where: { id: parseInt(id) },
+      where: {
+        id_reino_id_defensa: {
+          id_reino: id1,
+          id_defensa: id2
+        }
+      },
     });
     if (reinoTieneDefensa) {
       res.json(reinoTieneDefensa);
@@ -26,13 +31,10 @@ const getReinoTieneDefensaById = async (req, res) => {
 };
 
 const addReinoTieneDefensa = async (req, res) => {
-  const { id_reino, id_defensa } = req.body;
+  const datos = req.body;
   try {
     const reinoTieneDefensa = await prisma.reino_tiene_defensa.create({
-      data: {
-        id_reino,
-        id_defensa,
-      },
+      data: datos,
     });
     res.json(reinoTieneDefensa);
   } catch (error) {
@@ -41,15 +43,17 @@ const addReinoTieneDefensa = async (req, res) => {
 };
 
 const updateReinoTieneDefensa = async (req, res) => {
-  const { id } = req.params;
-  const { id_reino, id_defensa } = req.body;
+  const { id1 , id2 } = req.params;
+  const datos = req.body;
   try {
     const reinoTieneDefensaActualizado = await prisma.reino_tiene_defensa.update({
-      where: { id: parseInt(id) },
-      data: {
-        id_reino,
-        id_defensa,
+      where: {
+        id_reino_id_defensa: {
+          id_reino: id1,
+          id_defensa: id2
+        }
       },
+      data: datos,
     });
     res.json(reinoTieneDefensaActualizado);
   } catch (error) {
@@ -58,10 +62,15 @@ const updateReinoTieneDefensa = async (req, res) => {
 };
 
 const deleteReinoTieneDefensa = async (req, res) => {
-  const { id } = req.params;
+  const { id1 , id2 } = req.params;
   try {
     await prisma.reino_tiene_defensa.delete({
-      where: { id: parseInt(id) },
+      where: {
+        id_reino_id_defensa: {
+          id_reino: id1,
+          id_defensa: id2
+        }
+      },
     });
     res.json({ message: 'Datos eliminados correctamente' });
   } catch (error) {

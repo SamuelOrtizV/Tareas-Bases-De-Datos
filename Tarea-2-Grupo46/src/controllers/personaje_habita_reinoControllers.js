@@ -10,10 +10,15 @@ const getPersonajeHabitaReinos = async (req, res) => {
 };
 
 const getPersonajeHabitaReinoById = async (req, res) => {
-  const { id } = req.params;
+  const { id1 , id2 } = req.params
   try {
     const personajeHabitaReino = await prisma.personaje_habita_reino.findUnique({
-      where: { id: parseInt(id) },
+      where: {
+        id_personaje_id_reino: {
+          id_personaje: id1,
+          id_reino: id2
+        }
+      },
     });
     if (personajeHabitaReino) {
       res.json(personajeHabitaReino);
@@ -26,13 +31,10 @@ const getPersonajeHabitaReinoById = async (req, res) => {
 };
 
 const addPersonajeHabitaReino = async (req, res) => {
-  const { id_personaje, id_reino } = req.body;
+  const datos = req.body;
   try {
     const personajeHabitaReino = await prisma.personaje_habita_reino.create({
-      data: {
-        id_personaje,
-        id_reino,
-      },
+      data: datos,
     });
     res.json(personajeHabitaReino);
   } catch (error) {
@@ -41,15 +43,17 @@ const addPersonajeHabitaReino = async (req, res) => {
 };
 
 const updatePersonajeHabitaReino = async (req, res) => {
-  const { id } = req.params;
-  const { id_personaje, id_reino } = req.body;
+  const { id1 , id2 } = req.params
+  const datos = req.body;
   try {
     const personajeHabitaReinoActualizado = await prisma.personaje_habita_reino.update({
-      where: { id: parseInt(id) },
-      data: {
-        id_personaje,
-        id_reino,
+      where: {
+        id_personaje_id_reino: {
+          id_personaje: id1,
+          id_reino: id2
+        }
       },
+      data: datos,
     });
     res.json(personajeHabitaReinoActualizado);
   } catch (error) {
@@ -58,10 +62,15 @@ const updatePersonajeHabitaReino = async (req, res) => {
 };
 
 const deletePersonajeHabitaReino = async (req, res) => {
-  const { id } = req.params;
+  const { id1 , id2 } = req.params
   try {
     await prisma.personaje_habita_reino.delete({
-      where: { id: parseInt(id) },
+      where: {
+        id_personaje_id_reino: {
+          id_personaje: id1,
+          id_reino: id2
+        }
+      },
     });
     res.json({ message: 'Datos eliminados correctamente' });
   } catch (error) {

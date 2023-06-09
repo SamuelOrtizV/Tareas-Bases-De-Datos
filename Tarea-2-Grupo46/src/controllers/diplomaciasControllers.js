@@ -10,10 +10,15 @@ const getDiplomacias = async (req, res) => {
 };
 
 const getDiplomaciaById = async (req, res) => {
-  const { id } = req.params;
+  const { id1 , id2 } = req.params;
   try {
     const diplomacia = await prisma.diplomacias.findUnique({
-      where: { id: parseInt(id) },
+      where: {
+        id_reino_1_id_reino_2: {
+          id_reino_1: id1,
+          id_reino_2: id2
+        }
+      },
     });
     if (diplomacia) {
       res.json(diplomacia);
@@ -26,13 +31,10 @@ const getDiplomaciaById = async (req, res) => {
 };
 
 const addDiplomacia = async (req, res) => {
-  const { id_reino_1, id_reino_2 } = req.body;
+  const datos = req.body;
   try {
     const diplomacia = await prisma.diplomacias.create({
-      data: {
-        id_reino_1,
-        id_reino_2,
-      },
+      data: datos,
     });
     res.json(diplomacia);
   } catch (error) {
@@ -41,15 +43,17 @@ const addDiplomacia = async (req, res) => {
 };
 
 const updateDiplomacia = async (req, res) => {
-  const { id } = req.params;
-  const { id_reino_1, id_reino_2 } = req.body;
+  const { id1 , id2 } = req.params;
+  const datos = req.body;
   try {
     const diplomaciaActualizada = await prisma.diplomacias.update({
-      where: { id: parseInt(id) },
-      data: {
-        id_reino_1,
-        id_reino_2,
+      where: {
+        id_reino_1_id_reino_2: {
+          id_reino_1: id1,
+          id_reino_2: id2
+        }
       },
+      data: datos,
     });
     res.json(diplomaciaActualizada);
   } catch (error) {
@@ -58,10 +62,15 @@ const updateDiplomacia = async (req, res) => {
 };
 
 const deleteDiplomacia = async (req, res) => {
-  const { id } = req.params;
+  const { id1 , id2 } = req.params;
   try {
     await prisma.diplomacias.delete({
-      where: { id: parseInt(id) },
+      where: {
+        id_reino_1_id_reino_2: {
+          id_reino_1: id1,
+          id_reino_2: id2
+        }
+      },
     });
     res.json({ message: 'Diplomacia eliminada correctamente' });
   } catch (error) {
