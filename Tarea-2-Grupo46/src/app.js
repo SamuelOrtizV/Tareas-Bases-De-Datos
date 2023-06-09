@@ -3,6 +3,7 @@ import personajesController from "./controllers/personajesController.js";
 import trabajosController from "./controllers/trabajosController.js";
 import personaje_trabajoController from "./controllers/personaje_trabajo.js";
 import reinosController from "./controllers/reinosController.js";
+import kartsController from "./controllers/kartsController.js";
 import morgan from 'morgan';
 
 
@@ -41,7 +42,12 @@ app.post('/api/reinos', reinosController.addReino);
 app.put('/api/reinos/:id', reinosController.updateReino);
 app.delete('/api/reinos/:id', reinosController.deleteReino);
 
-
+//CRUD karts
+app.get('/api/karts', kartsController.getKarts)
+app.get('/api/karts/:id', kartsController.getKartById)
+app.post('/api/karts', kartsController.addKart)
+app.put('/api/karts/:id', kartsController.updateKart)
+app.delete('/api/karts/:id', kartsController.deleteKart)
 //==========================================================//
 app.get('/', (req, res) => {
     res.json({ message: 'Hello World!!' });
