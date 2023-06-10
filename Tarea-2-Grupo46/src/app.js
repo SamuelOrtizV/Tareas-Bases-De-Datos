@@ -8,6 +8,7 @@ import defensasController from './controllers/defensasControllers.js';
 import diplomaciasController from './controllers/diplomaciasControllers.js';
 import reino_tiene_defensaController from './controllers/reino_tiene_defensaControllers.js';
 import personaje_habita_reinoController from './controllers/personaje_habita_reinoControllers.js';
+import endpoints from './controllers/endpoints.js';
 import morgan from 'morgan';
 
 
@@ -52,6 +53,7 @@ app.get('/api/karts/:id', kartsController.getKartById)
 app.post('/api/karts', kartsController.addKart)
 app.put('/api/karts/:id', kartsController.updateKart)
 app.delete('/api/karts/:id', kartsController.deleteKart)
+
 //CRUD defensas
 app.get('/api/defensas', defensasController.getDefensas);
 app.get('/api/defensas/:id', defensasController.getDefensaById);
@@ -79,6 +81,13 @@ app.get('/api/personaje_habita_reino/:id1/:id2', personaje_habita_reinoControlle
 app.post('/api/personaje_habita_reino', personaje_habita_reinoController.addPersonajeHabitaReino);
 app.put('/api/personaje_habita_reino/:id1/:id2', personaje_habita_reinoController.updatePersonajeHabitaReino);
 app.delete('/api/personaje_habita_reino/:id1/:id2', personaje_habita_reinoController.deletePersonajeHabitaReino);
+
+//endpoints
+app.get('/api/top5personajesConMasFuerza', endpoints.top5);
+app.get('/api/personajeConMasKarts', endpoints.maskarts);
+app.get('/api/cantidadHabitantes/:id', endpoints.numerohabitantes);
+app.get('/api/gobernante', endpoints.gobernantes);
+app.get('/api/gobernante/:id', endpoints.gobernanteById);
 
 
 
