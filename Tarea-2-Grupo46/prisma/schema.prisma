@@ -29,7 +29,7 @@ model karts {
   color String
   velocidad_maxima Int?
   personaje    personajes    @relation(fields: [id_personaje], references: [id])
-  id_personaje  Int?
+  id_personaje  Int
 }
 
 model personaje_tiene_trabajo {

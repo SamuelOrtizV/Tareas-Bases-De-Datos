@@ -6,7 +6,10 @@ const top5 = async (req, res) => {
             orderBy: {
                 fuerza: 'desc'
             },
-            take: 5
+            take: 5,
+            select: {
+                nombre: true
+            }
         });
 
         res.json(topPersonajes);
@@ -18,18 +21,37 @@ const top5 = async (req, res) => {
 
 const maskarts = async (req, res) => {
     try {
-        const personajeConMasKarts = await prisma.personajes.findFirst({
-            orderBy: {
-                _count: {
-                    karts: 'desc'
+        const argumentoMasRepetido = await prisma.karts
+            .groupBy({
+                by: ['id_personaje'],
+                orderBy:{
+                    _count: {
+                        id_personaje: 'desc'
+                    }
+                },
+                select: {
+                    id_personaje: true,
+                    _count: true
                 }
+            });
+        const resultado = argumentoMasRepetido.map(({ id_personaje, _count }) => ({
+            id_personaje,
+            count: _count.id
+        }));
+        const id = resultado[0].id_personaje;
+        const personaje = await prisma.personajes.findUnique({
+            where: {
+                id: id
+            },
+            select: {
+                nombre: true
             }
         });
-
-        res.json(personajeConMasKarts);
+        const resultado2 = {nombre: personaje.nombre, cantidad_karts: resultado[0].count};
+        res.json(resultado2);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ mensaje: 'Error al obtener el personaje con más karts' });
+        res.status(500).json({ mensaje: 'Error al encontrar el argumento más repetido' });
     }
 };
 
@@ -39,7 +61,7 @@ const numerohabitantes = async (req, res) => {
     try {
         const cantidadHabitantes = await prisma.personaje_habita_reino.count({
             where: {
-                id_reino: id
+                id_reino: parseInt(id)
             }
         });
 
@@ -55,14 +77,20 @@ const gobernanteById = async (req, res) => {
     try {
         const gobernante = await prisma.personaje_habita_reino.findMany({
             where: {
-                id_reino,
+                id_reino: parseInt(id),
                 es_gobernante: true
             },
-            include: {
-                personaje: true
+            select: {
+                id_personaje: true
             }
         });
-        res.json(gobernante);
+        const id_personaje = gobernante[0].id_personaje;
+        const personaje = await prisma.personajes.findUnique({
+            where: {
+                id: id_personaje
+            }
+        });
+        res.json(personaje);
     } catch (error) {
         res.status(500).json({ error: 'Error al obtener gobernante' });
     }
@@ -74,12 +102,33 @@ const gobernantes = async (req, res) => {
             where: {
                 es_gobernante: true
             },
-            include: {
-                personaje: true
+            select: {
+                id_personaje: true,
+                id_reino: true
             }
         });
-        res.json(Gobernantes);
+        const resultados = await Promise.all(
+            Gobernantes.map(async (item) => {
+                const personaje = await prisma.personajes.findUnique({
+                    where: { id: item.id_personaje },
+                    select: { nombre: true }
+                });
+
+                const reino = await prisma.reinos.findUnique({
+                    where: { id: item.id_reino },
+                    select: { nombre: true }
+                });
+
+                return {
+                    nombre_personaje: personaje.nombre,
+                    nombre_reino: reino.nombre
+                };
+            })
+        );
+
+        res.json(resultados);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ error: 'Error al obtener los gobernantes' });
     }
 };
