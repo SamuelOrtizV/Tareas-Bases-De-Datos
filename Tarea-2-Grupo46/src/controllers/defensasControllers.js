@@ -26,13 +26,11 @@ const getDefensaById = async (req, res) => {
 };
 
 const addDefensa = async (req, res) => {
-  const { nombre, puntos } = req.body;
+  const nombre = req.body;
   try {
     const defensa = await prisma.defensas.create({
-      data: {
-        nombre,
-        puntos,
-      },
+      data: nombre,
+
     });
     res.json(defensa);
   } catch (error) {
@@ -42,14 +40,11 @@ const addDefensa = async (req, res) => {
 
 const updateDefensa = async (req, res) => {
   const { id } = req.params;
-  const { nombre, puntos } = req.body;
+  const  nombre = req.body;
   try {
     const defensaActualizada = await prisma.defensas.update({
       where: { id: parseInt(id) },
-      data: {
-        nombre,
-        puntos,
-      },
+      data: nombre,
     });
     res.json(defensaActualizada);
   } catch (error) {
