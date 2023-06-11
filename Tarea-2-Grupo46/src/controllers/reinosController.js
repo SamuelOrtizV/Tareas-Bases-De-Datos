@@ -29,13 +29,13 @@ const getReinoById = async (req, res) => {
 
 // Agregar un nuevo reino
 const addReino = async (req, res) => {
-  const { nombre, poblacion, monarca } = req.body;
+  const { nombre, ubicacion, superficie } = req.body;
   try {
     const reino = await prisma.reinos.create({
       data: {
         nombre,
-        poblacion,
-        monarca,
+        ubicacion,
+        superficie,
       },
     });
     res.json(reino);
@@ -47,14 +47,14 @@ const addReino = async (req, res) => {
 // Actualizar un reino
 const updateReino = async (req, res) => {
   const { id } = req.params;
-  const { nombre, poblacion, monarca } = req.body;
+  const { nombre, ubicacion, superficie } = req.body;
   try {
     const reinoActualizado = await prisma.reinos.update({
       where: { id: parseInt(id) },
       data: {
         nombre,
-        poblacion,
-        monarca,
+        ubicacion,
+        superficie,
       },
     });
     res.json(reinoActualizado);
