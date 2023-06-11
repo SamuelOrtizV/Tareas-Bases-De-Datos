@@ -8,7 +8,8 @@ const top5 = async (req, res) => {
             },
             take: 5,
             select: {
-                nombre: true
+                nombre: true,
+                fuerza: true
             }
         });
 
