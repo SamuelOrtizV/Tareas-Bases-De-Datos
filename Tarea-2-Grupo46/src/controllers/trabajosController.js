@@ -63,7 +63,7 @@ const deleteTrabajo = async (req, res) => {
           id: parseInt(id),
         },
       });
-      res.json(trabajo);
+        res.json({ message: 'Trabajo eliminado correctamente' });
     } catch (error) {
       res.status(500).json({ error: 'Error al eliminar el trabajo' });
     }
