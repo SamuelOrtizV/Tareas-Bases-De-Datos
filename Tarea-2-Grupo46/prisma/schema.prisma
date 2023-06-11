@@ -50,7 +50,7 @@ model trabajos {
 }
 
 model personaje_habita_reino {
-  id_personaje Int @unique
+  id_personaje Int
   id_reino Int
   @@id([id_personaje, id_reino])
   personaje personajes @relation(fields: [id_personaje], references: [id])
