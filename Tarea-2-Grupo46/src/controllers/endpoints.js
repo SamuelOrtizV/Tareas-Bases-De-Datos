@@ -14,7 +14,6 @@ const top5 = async (req, res) => {
 
         res.json(topPersonajes);
     } catch (error) {
-        console.error(error);
         res.status(500).json({ mensaje: 'Error al obtener el top de personajes' });
     }
 };
@@ -50,7 +49,6 @@ const maskarts = async (req, res) => {
         const resultado2 = {nombre: personaje.nombre, cantidad_karts: resultado[0].count};
         res.json(resultado2);
     } catch (error) {
-        console.error(error);
         res.status(500).json({ mensaje: 'Error al encontrar el argumento más repetido' });
     }
 };
@@ -67,7 +65,6 @@ const numerohabitantes = async (req, res) => {
 
         res.json({ cantidadHabitantes });
     } catch (error) {
-        console.error(error);
         res.status(500).json({ mensaje: 'Error al obtener la cantidad de personajes por reino' });
     }
 };
@@ -128,7 +125,6 @@ const gobernantes = async (req, res) => {
 
         res.json(resultados);
     } catch (error) {
-        console.error(error);
         res.status(500).json({ error: 'Error al obtener los gobernantes' });
     }
 };

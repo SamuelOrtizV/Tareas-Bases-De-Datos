@@ -15,8 +15,8 @@ const getReinoTieneDefensaById = async (req, res) => {
     const reinoTieneDefensa = await prisma.reino_tiene_defensa.findUnique({
       where: {
         id_reino_id_defensa: {
-          id_reino: id1,
-          id_defensa: id2
+          id_reino: parseInt(id1),
+          id_defensa: parseInt(id2)
         }
       },
     });
@@ -49,8 +49,8 @@ const updateReinoTieneDefensa = async (req, res) => {
     const reinoTieneDefensaActualizado = await prisma.reino_tiene_defensa.update({
       where: {
         id_reino_id_defensa: {
-          id_reino: id1,
-          id_defensa: id2
+          id_reino: parseInt(id1),
+          id_defensa: parseInt(id2)
         }
       },
       data: datos,
@@ -67,8 +67,8 @@ const deleteReinoTieneDefensa = async (req, res) => {
     await prisma.reino_tiene_defensa.delete({
       where: {
         id_reino_id_defensa: {
-          id_reino: id1,
-          id_defensa: id2
+          id_reino: parseInt(id1),
+          id_defensa: parseInt(id2)
         }
       },
     });

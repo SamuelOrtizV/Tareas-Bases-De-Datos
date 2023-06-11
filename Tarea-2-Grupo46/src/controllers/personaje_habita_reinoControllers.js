@@ -15,8 +15,8 @@ const getPersonajeHabitaReinoById = async (req, res) => {
     const personajeHabitaReino = await prisma.personaje_habita_reino.findUnique({
       where: {
         id_personaje_id_reino: {
-          id_personaje: id1,
-          id_reino: id2
+          id_personaje: parseInt(id1),
+          id_reino: parseInt(id2)
         }
       },
     });
@@ -49,8 +49,8 @@ const updatePersonajeHabitaReino = async (req, res) => {
     const personajeHabitaReinoActualizado = await prisma.personaje_habita_reino.update({
       where: {
         id_personaje_id_reino: {
-          id_personaje: id1,
-          id_reino: id2
+          id_personaje: parseInt(id1),
+          id_reino: parseInt(id2)
         }
       },
       data: datos,
@@ -67,8 +67,8 @@ const deletePersonajeHabitaReino = async (req, res) => {
     await prisma.personaje_habita_reino.delete({
       where: {
         id_personaje_id_reino: {
-          id_personaje: id1,
-          id_reino: id2
+          id_personaje: parseInt(id1),
+          id_reino: parseInt(id2)
         }
       },
     });

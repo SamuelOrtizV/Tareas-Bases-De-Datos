@@ -15,8 +15,8 @@ const getDiplomaciaById = async (req, res) => {
     const diplomacia = await prisma.diplomacias.findUnique({
       where: {
         id_reino_1_id_reino_2: {
-          id_reino_1: id1,
-          id_reino_2: id2
+          id_reino_1: parseInt(id1),
+          id_reino_2: parseInt(id2)
         }
       },
     });
@@ -49,8 +49,8 @@ const updateDiplomacia = async (req, res) => {
     const diplomaciaActualizada = await prisma.diplomacias.update({
       where: {
         id_reino_1_id_reino_2: {
-          id_reino_1: id1,
-          id_reino_2: id2
+          id_reino_1: parseInt(id1),
+          id_reino_2: parseInt(id2)
         }
       },
       data: datos,
@@ -67,8 +67,8 @@ const deleteDiplomacia = async (req, res) => {
     await prisma.diplomacias.delete({
       where: {
         id_reino_1_id_reino_2: {
-          id_reino_1: id1,
-          id_reino_2: id2
+          id_reino_1: parseInt(id1),
+          id_reino_2: parseInt(id2)
         }
       },
     });
