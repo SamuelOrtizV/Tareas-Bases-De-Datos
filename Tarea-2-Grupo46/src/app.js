@@ -63,10 +63,10 @@ app.delete('/api/defensas/:id', defensasController.deleteDefensa);
 
 //CRUD diplomacias
 app.get('/api/diplomacias', diplomaciasController.getDiplomacias);
-app.get('/api/diplomacias/:id', diplomaciasController.getDiplomaciaById);
+app.get('/api/diplomacias/:id1/:id2', diplomaciasController.getDiplomaciaById);
 app.post('/api/diplomacias', diplomaciasController.addDiplomacia);
-app.put('/api/diplomacias/:id', diplomaciasController.updateDiplomacia);
-app.delete('/api/diplomacias/:id', diplomaciasController.deleteDiplomacia);
+app.put('/api/diplomacias/:id1/:id2', diplomaciasController.updateDiplomacia);
+app.delete('/api/diplomacias/:id1/:id2', diplomaciasController.deleteDiplomacia);
 
 //CRUD reino tiene defensa
 app.get('/api/reino_tiene_defensa', reino_tiene_defensaController.getReinoTieneDefensas);
