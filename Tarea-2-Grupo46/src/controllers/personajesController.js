@@ -73,7 +73,6 @@ const deletePersonaje = async (req, res) => {
     }
   };
 
-
 const personajesController = {
     getPersonajes,
     getPersonajeById,
